@@ -14,7 +14,6 @@ public class HTTPServerVerticle extends AbstractVerticle {
 
 	@Override
 	public void start(Promise<Void> promise) throws Exception {
-	
 		vertx.setPeriodic(5000, id -> {
 			logger.info("tick");
 		});
@@ -22,13 +21,11 @@ public class HTTPServerVerticle extends AbstractVerticle {
 		vertx.createHttpServer().requestHandler(req -> {
 			logger.info("Request #{} from {}", counter++, req.remoteAddress().host());
 			req.response().end("Hello");
-		}).listen(config().getInteger("http.port",8080), ar -> {
+		}).listen(config().getInteger("http.port", 8080), ar -> {
 			if (ar.succeeded()) {
 				promise.complete();
-//				logger.info("Open http://localhost:8080/");
 			} else {
 				promise.fail(ar.cause().getMessage());
-//				logger.error(ar.cause().getMessage());
 			}
 		});
 
@@ -37,7 +34,6 @@ public class HTTPServerVerticle extends AbstractVerticle {
 	@Override
 	public void stop() throws Exception {
 		System.out.println("HTTPServerVerticle:stop()");
-		// ...
 	}
 
 }

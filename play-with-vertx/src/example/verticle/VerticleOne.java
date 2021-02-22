@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import io.vertx.core.AbstractVerticle;
 
-public class DeployerVerticle extends AbstractVerticle {
+public class VerticleOne extends AbstractVerticle {
 
-	private final Logger logger = LoggerFactory.getLogger(DeployerVerticle.class);
+	private final Logger logger = LoggerFactory.getLogger(VerticleOne.class);
 
 	@Override
 	public void start() throws Exception {
@@ -19,8 +19,7 @@ public class DeployerVerticle extends AbstractVerticle {
 	}
 
 	private void deploy() {
-
-		vertx.deployVerticle(new EmptyVerticle(), ar -> {
+		vertx.deployVerticle(new VerticleTwo(), ar -> {
 			if (ar.succeeded()) {
 				String id = ar.result();
 				logger.info("Successfully deployed {}", id);
@@ -29,7 +28,6 @@ public class DeployerVerticle extends AbstractVerticle {
 				logger.error("Error while deploying", ar.cause());
 			}
 		});
-
 	}
 
 	private void undeployLater(String id) {
@@ -42,6 +40,7 @@ public class DeployerVerticle extends AbstractVerticle {
 		});
 	}
 
+	
 	@Override
 	public void stop() throws Exception {
 	}

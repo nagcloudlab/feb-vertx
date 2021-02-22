@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import io.vertx.core.AbstractVerticle;
 
-public class EmptyVerticle extends AbstractVerticle {
+public class VerticleTwo extends AbstractVerticle {
 	
-	private final Logger logger = LoggerFactory.getLogger(EmptyVerticle.class);
+	private final Logger logger = LoggerFactory.getLogger(VerticleTwo.class);
 
 	@Override
 	public void start() {

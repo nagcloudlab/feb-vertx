@@ -16,26 +16,46 @@ public class Main {
 		Vertx vertx = Vertx.vertx();
 
 		// ---------------------------------------------------------------
-//		JsonObject config=new JsonObject();
-//		config.put("http.port", 8181);
-//		DeploymentOptions deploymentOptions = new DeploymentOptions().setConfig(config);
-//
-//		vertx.deployVerticle("example.verticle.HTTPServerVerticle", deploymentOptions, ar -> {
-//			if (ar.succeeded()) {
-//				logger.info("Open http://localhost:8080/");
-//			} else {
-//				logger.error(ar.cause().getMessage());
-//			}
-//		});
+		// #1 : basic verticle with external configuration
+		// ---------------------------------------------------------------
+		
+		JsonObject config = new JsonObject();
+		config.put("http.port", 8181);
+		DeploymentOptions opts1 = new DeploymentOptions().setConfig(config);
 
+		vertx.deployVerticle("example.verticle.HTTPServerVerticle", opts1, ar -> {
+			if (ar.succeeded()) {
+				logger.info("Open http://localhost:8080/");
+			} else {
+				logger.error(ar.cause().getMessage());
+			}
+		});
+		
+		// ---------------------------------------------------------------
+		// #2 Never Block EventLoop
 		// ---------------------------------------------------------------
 
-		DeploymentOptions opts = new DeploymentOptions().setInstances(1);
+		vertx.deployVerticle(new NeventBlockEventLoop());
 
-		vertx.deployVerticle("example.verticle.OffloadVerticle", opts,ar->{
-			if(ar.succeeded()) {
+		// ---------------------------------------------------------------
+		// #3 verticle deploying other verticles
+		// ---------------------------------------------------------------
+
+		vertx.deployVerticle(new VerticleOne());
+
+		// ---------------------------------------------------------------
+		// #4 verticle on worker threads
+		// ---------------------------------------------------------------
+
+		DeploymentOptions opts2 = 
+				new DeploymentOptions()
+				.setInstances(1)
+				.setWorker(true);
+
+		vertx.deployVerticle("example.verticle.WorkerVerticle", opts2, ar -> {
+			if (ar.succeeded()) {
 				logger.info("deployed");
-			}else {
+			} else {
 				ar.cause().printStackTrace();
 			}
 		});
