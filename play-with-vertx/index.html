@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vert.x weather-app</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+</head>
+
+<body class="container">
+
+    <div id="avg"></div>
+    <div id="main"></div>
+
+    <script>
+        const sse = new EventSource("/live-temp") // sse request
+        const avg = document.getElementById('avg')
+        const main = document.getElementById('main')
+
+        sse.addEventListener("average", (evt) => {
+            const data = JSON.parse(evt.data)
+            avg.innerText = `Average = ${data.average.toFixed(2)}`
+        })
+        sse.addEventListener('update', event => {
+            const data = JSON.parse(event.data)
+            let div = document.getElementById(data.id);
+            if (div === null) {
+                div = document.createElement("div")
+                div.setAttribute("id", data.id)
+                main.appendChild(div)
+            }
+            div.innerHTML = `<strong>${data.temp.toFixed(2)}</strong> (<em>${data.id}</em>)`
+        })
+
+    </script>
+
+</body>
+
+</html>
