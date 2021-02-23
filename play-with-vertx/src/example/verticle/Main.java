@@ -35,7 +35,7 @@ public class Main {
 		// #2 Never Block EventLoop
 		// ---------------------------------------------------------------
 
-		vertx.deployVerticle(new NeventBlockEventLoop());
+		vertx.deployVerticle(new NeverBlockEventLoop());
 
 		// ---------------------------------------------------------------
 		// #3 verticle deploying other verticles
