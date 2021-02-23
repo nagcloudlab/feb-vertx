@@ -1,0 +1,10 @@
+
+
+
+java-8 features
+--------------------
+
+
+=> lambda expressions
+=> method reference        e.g this::method
+=> java-8 streams to process collections in declarative styles
