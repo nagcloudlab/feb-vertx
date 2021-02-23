@@ -16,7 +16,6 @@ public class Listener extends AbstractVerticle {
 
 	@Override
 	public void start() throws Exception {
-
 		EventBus eventBus = vertx.eventBus();
 		eventBus.<JsonObject>consumer("sensor.updates", message -> {
 			JsonObject body = message.body();
@@ -24,7 +23,6 @@ public class Listener extends AbstractVerticle {
 			String temperature = format.format(body.getDouble("temp"));
 			logger.info("{} reports a temperature ~{}C", id, temperature);
 		});
-
 	}
 
 }

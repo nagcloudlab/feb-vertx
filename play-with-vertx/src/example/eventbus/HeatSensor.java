@@ -37,8 +37,5 @@ public class HeatSensor extends AbstractVerticle {
 		}
 	}
 
-	@Override
-	public void stop() throws Exception {
-	}
 
 }

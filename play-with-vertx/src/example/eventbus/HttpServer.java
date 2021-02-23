@@ -11,9 +11,7 @@ public class HttpServer extends AbstractVerticle {
 
 	@Override
 	public void start() throws Exception {
-
 		vertx.createHttpServer().requestHandler(this::handler).listen(config().getInteger("port", 8080));
-
 	}
 
 	private void handler(HttpServerRequest request) {
@@ -30,7 +28,9 @@ public class HttpServer extends AbstractVerticle {
 	private void sse(HttpServerRequest request) {
 
 		HttpServerResponse response = request.response();
-		response.putHeader("Content-Type", "text/event-stream").putHeader("Cache-Control", "no-cache").setChunked(true);
+		response.putHeader("Content-Type", "text/event-stream")
+		.putHeader("Cache-Control", "no-cache")
+		.setChunked(true); // transfer encoding
 
 		MessageConsumer<JsonObject> consumer = vertx.eventBus().consumer("sensor.updates");
 		consumer.handler(message -> {
