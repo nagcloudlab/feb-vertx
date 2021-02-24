@@ -23,7 +23,7 @@ public class Main {
 		config.put("http.port", 8181);
 		DeploymentOptions opts1 = new DeploymentOptions().setConfig(config);
 
-		vertx.deployVerticle("example.verticle.HTTPServerVerticle", opts1, ar -> {
+		vertx.deployVerticle("example.verticle.HttpServerVerticle", opts1, ar -> {
 			if (ar.succeeded()) {
 				logger.info("Open http://localhost:8080/");
 			} else {

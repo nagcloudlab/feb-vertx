@@ -7,9 +7,9 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 
-public class HTTPServerVerticle extends AbstractVerticle {
+public class HttpServerVerticle extends AbstractVerticle {
 
-	private final Logger logger = LoggerFactory.getLogger(HTTPServerVerticle.class);
+	private final Logger logger = LoggerFactory.getLogger(HttpServerVerticle.class);
 	private long counter = 1;
 
 	@Override
