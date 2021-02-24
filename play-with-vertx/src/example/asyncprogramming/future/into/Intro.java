@@ -1,4 +1,4 @@
-package example.asyncprogramming.future;
+package example.asyncprogramming.future.into;
 
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
